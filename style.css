@@ -1,0 +1,44 @@
+* {
+    font-family: 'Kode Mono', monospace;
+}
+
+.display {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    width: 208px;
+    padding: 16px;
+    border: 2px solid pink;
+    border-radius: 16px;
+}
+
+.result {
+    font-weight: 900;
+    margin: 6px;
+    display: flex;
+    justify-content: end;
+    display: flex;
+    border: 1px solid purple;
+    padding: 5px;
+    border-radius: 8px;
+    /* align-items: center; */
+    /* justify-content: center; */
+}
+
+.row {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+.box {
+    margin: 2px;
+    padding: 5px;
+    width: 30px;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid lightgray;
+    border-radius: 8px;
+}
