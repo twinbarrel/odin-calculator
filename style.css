@@ -41,4 +41,30 @@
     align-items: center;
     border: 2px solid lightgray;
     border-radius: 8px;
+    transition-duration: 0.4s;
+}
+
+.box:hover {
+    background-color: lightgray;
+}
+
+.bigB {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-grow: 1;
+    background-color: purple;
+    color: white;
+}
+
+.bigB:hover  {
+    background-color: magenta;
+}
+
+.ops {
+    border-color: lightgreen;
+}
+
+.ops:hover {
+    background-color: lightgreen;
 }

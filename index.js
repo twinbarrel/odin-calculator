@@ -1,9 +1,9 @@
 function add(a, b) {
-    return parseInt(a) + parseInt(b);   
+    return parseFloat(a) + parseFloat(b);   
 }
 
 function subtract(a, b) {
-    return parseInt(a) - parseInt(b);
+    return parseFloat(a) - parseFloat(b);
 }
 
 function multiply(a, b) {
@@ -41,9 +41,11 @@ let operator = null;
 let secondNum = null;
 let result = document.querySelector('.result');
 
+let previousInput = null;
+
 buttons.addEventListener("click", function(button){
     // Proceeds only if a button has been clicked
-    const isButton = (button.target.className == 'box');
+    const isButton = (button.target.classList.contains('box'));
     if (!isButton) return;
     
     // Runs different cases based on whether a number, operator or clear is clicked
@@ -52,36 +54,57 @@ buttons.addEventListener("click", function(button){
     switch(true) {
         case isNumber(input):
             clickNumber(input);
+            previousInput = input;
             break;
         case isOperator(input):
             clickOperator(input);
+            previousInput = input;
             break;
         case (input == '='):
             clickEquals(input);
+            previousInput = input;
             break;
-        case (input == 'C'):
-            // ...'
+        case (input == 'Clear'):
+            clickClear();
+            previousInput = input;
+            break;
+        case (input == '.'):
+            alert('to be implemented');
+            break;
+        case (input == 'Undo'):
+            alert('to be implemented');
             break;
     }
 })
 
 function clickNumber(input) {
     console.log(input);
-    if (!operator) {
+    if (firstNum && !operator) {
+        if(firstNum == 0) {
+            firstNum = input;
+        } else {
+            firstNum = firstNum + input;
+        }
+        result.textContent = firstNum;
+    } else if (!operator) {
         firstNum = input;
         secondNum = null;
-    } else if (operator) {
+        result.textContent = input;
+    } else if (operator && !secondNum) {
         secondNum = input;
+        result.textContent = input;
+    } else if (operator && secondNum) {
+        secondNum = secondNum + input;
+        result.textContent = secondNum;
     }
-    result.textContent = input;
 }
 
 function clickOperator(input) {
     console.log(input);
-    if (firstNum >= 0 && operator && secondNum) {
+    if (firstNum && operator && secondNum) {
         console.log(`operating...${firstNum}${operator}${secondNum}`);
         firstNum = operate(firstNum,operator,secondNum);
-        operator, secondNum = null;
+        operator = secondNum = null;
         result.textContent = firstNum;
     } else if (!firstNum) {
         firstNum = 0;
@@ -94,12 +117,17 @@ function clickOperator(input) {
 }
 
 function clickEquals(input) {
-    if (firstNum >= 0 && operator && secondNum) {
+    if (firstNum && operator && secondNum) {
         console.log(`operating...${firstNum}${operator}${secondNum}`);
         firstNum = operate(firstNum,operator,secondNum);
-        operator, secondNum = null;
+        operator = secondNum = null;
         result.textContent = firstNum;
     }
+}
+
+function clickClear() {
+    firstNum = operator = secondNum = null;
+    result.textContent = 0;
 }
 
 /*
